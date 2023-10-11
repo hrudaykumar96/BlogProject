@@ -1,0 +1,45 @@
+{% extends "home.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+</head>
+
+<body>
+    {% block content %}
+    <h3 class="head">You Can Update Blog Here</h3>
+    <form action="{% url 'new_data' update_data.id %}" class="forms" method="post">{% csrf_token %}
+        Project Number:<input type="hidden" placeholder="Project number" name="id" , id="fileds"
+            value="{{update_data.id}}">
+        Project Title: <input type="text" placeholder="Project Title" name="title" , id="fileds"
+            value="{{update_data.title}}">
+        Project Link: <input type="text" placeholder="Project Link" , name="link" , id="fileds"
+            value="{{update_data.link}}">
+        Project Description: <textarea id="" cols="30" rows="10" placeholder="Describe Your Project" name="description"
+            id="fileds">{{update_data.description}}</textarea>
+        <input type="submit" value="Update Blog">
+    </form>
+    {% endblock content %}
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script>
+        {% for message in messages %}
+        alertify.set('notifier', 'position', 'top-center');
+        alertify.success('{{message}}');
+        {% endfor %}
+    </script>
+</body>
+
+</html>

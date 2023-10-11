@@ -1,0 +1,41 @@
+{% extends "home.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+</head>
+
+<body>
+    {% block content %}
+    <h3 class="head">You Can Create Blog Here</h3>
+    <form action="" class="forms" method="post">{% csrf_token %}
+        Project Title: <input type="text" placeholder="Project Title" name="title" , id="fileds" required>
+        Project Link: <input type="text" placeholder="Project Link" , name="link" , id="fileds" required>
+        Project Description: <textarea name="description" id="" cols="30" rows="10" placeholder="Describe Your Project"
+            , id="fileds" required></textarea>
+        <input type="submit" value="Create Blog">
+    </form>
+    {% endblock content %}
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script>
+        {% for message in messages %}
+        alertify.set('notifier', 'position', 'top-center');
+        alertify.success('{{message}}');
+        {% endfor %}
+    </script>
+</body>
+
+</html>

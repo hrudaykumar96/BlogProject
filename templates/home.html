@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <h3>Django Blog Project</h3>
+        </div>
+        <div class="menu">
+            <a href="{% url 'home' %}">Home</a>
+        </div>
+    </div>
+    {% block content %}
+    <div class="body">
+        <form action="" class="form" method="get">
+            <input type="text" placeholder="search" name="search">
+            <input type="submit" value="Search">
+        </form>
+        <a href="{% url 'add' %}"><button class="create-btn">Create Blog</button></a>
+    </div>
+    <div class="list">
+        {% for i in read_data %}
+        <div class="card">
+            <h3 align="center">Project Number: {{i.id}}</h3><a href="{% url 'update' i.id %}" <button
+                class="edit-btn">Edit</button></a><a href="{% url 'remove' i.id %}"><button
+                    class="delete-btn">Delete</button></a>
+            <h3>Project Title: </h3>
+            <p>{{i.title}}</p>
+            <h3>Project Link:</h3>
+            <p><a href="{{i.link}}">{{i.link}}</a></p>
+            <h3>Project Description:</h3>
+            <p id="paragraph">{{i.description}}</p>
+        </div>
+        {% empty %}
+        <p class="msg">No Record Found</p>
+        {% endfor %}
+    </div>
+
+    {% endblock content %}
+    <div class="footer">
+        Copyright © Hrudy Kumar
+    </div>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script>
+        {% for message in messages %}
+        alertify.set('notifier', 'position', 'top-center');
+        alertify.success('{{message}}');
+        {% endfor %}
+    </script>
+</body>
+
+</html>
